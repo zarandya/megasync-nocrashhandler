@@ -1,0 +1,93 @@
+diff --git a/src/MEGASync/MEGASync.pro b/src/MEGASync/MEGASync.pro
+index 2d196fa21..c8fca3eb4 100644
+--- a/src/MEGASync/MEGASync.pro
++++ b/src/MEGASync/MEGASync.pro
+@@ -120,7 +120,7 @@ include(transfers/transfers.pri)
+ include(notifications/notifications.pri)
+ include(syncs/syncs.pri)
+ include(platform/platform.pri)
+-include(google_breakpad/google_breakpad.pri)
++#include(google_breakpad/google_breakpad.pri)
+ include(qtlockedfile/qtlockedfile.pri)
+ 
+ unix:!macx {
+diff --git a/src/MEGASync/MegaApplication.cpp b/src/MEGASync/MegaApplication.cpp
+index e4502f349..bc7149580 100644
+--- a/src/MEGASync/MegaApplication.cpp
++++ b/src/MEGASync/MegaApplication.cpp
+@@ -4,7 +4,7 @@
+ #include "QMegaMessageBox.h"
+ #include "control/AppStatsEvents.h"
+ #include "control/Utilities.h"
+-#include "control/CrashHandler.h"
++//#include "control/CrashHandler.h"
+ #include "control/ExportProcessor.h"
+ #include "EventUpdater.h"
+ #include "platform/Platform.h"
+@@ -583,6 +583,7 @@ void MegaApplication::initialize()
+     if (preferences->isCrashed())
+     {       
+         preferences->setCrashed(false);
++		/*
+         QStringList reports = CrashHandler::instance()->getPendingCrashReports();
+         if (reports.size())
+         {
+@@ -625,6 +626,7 @@ void MegaApplication::initialize()
+                 }
+             });
+         }
++		*/
+     }
+ 
+     mTransferQuota = std::make_shared<TransferQuota>(mOsNotifications);
+@@ -2162,7 +2164,7 @@ void MegaApplication::cleanAll()
+     appfinished = true;
+ 
+ #ifndef DEBUG
+-    CrashHandler::instance()->Disable();
++	//CrashHandler::instance()->Disable();
+ #endif
+ 
+     qInstallMsgHandler(0);
+diff --git a/src/MEGASync/control/control.pri b/src/MEGASync/control/control.pri
+index df97f49fe..ae038fb90 100644
+--- a/src/MEGASync/control/control.pri
++++ b/src/MEGASync/control/control.pri
+@@ -12,7 +12,6 @@ SOURCES += $$PWD/HTTPServer.cpp \
+     $$PWD/MegaUploader.cpp \
+     $$PWD/TransferRemainingTime.cpp \
+     $$PWD/UpdateTask.cpp \
+-    $$PWD/CrashHandler.cpp \
+     $$PWD/ExportProcessor.cpp \
+     $$PWD/UserAttributesManager.cpp \
+     $$PWD/Utilities.cpp \
+@@ -34,7 +33,6 @@ HEADERS  +=  $$PWD/HTTPServer.h \
+     $$PWD/MegaUploader.h \
+     $$PWD/TransferRemainingTime.h \
+     $$PWD/UpdateTask.h \
+-    $$PWD/CrashHandler.h \
+     $$PWD/ExportProcessor.h \
+     $$PWD/UserAttributesManager.h \
+     $$PWD/Utilities.h \
+diff --git a/src/MEGASync/main.cpp b/src/MEGASync/main.cpp
+index 9a65c5496..acdd425f5 100644
+--- a/src/MEGASync/main.cpp
++++ b/src/MEGASync/main.cpp
+@@ -3,7 +3,7 @@
+ #include "platform/Platform.h"
+ #include "qtlockedfile/qtlockedfile.h"
+ #include "control/AppStatsEvents.h"
+-#include "control/CrashHandler.h"
++//#include "control/CrashHandler.h"
+ #include "ScaleFactorManager.h"
+ #include "PowerOptions.h"
+ 
+@@ -489,7 +489,7 @@ int main(int argc, char *argv[])
+     }
+ 
+ #ifndef DEBUG
+-    CrashHandler::instance()->Init(QDir::toNativeSeparators(crashPath));
++    //CrashHandler::instance()->Init(QDir::toNativeSeparators(crashPath));
+ #endif
+ 
+     QtLockedFile singleInstanceChecker(appLockPath);
