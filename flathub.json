@@ -1,4 +1,0 @@
-{
-    "skip-arches": ["aarch64"],
-    "automerge-flathubbot-prs": true
-}

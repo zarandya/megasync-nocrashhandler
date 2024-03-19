@@ -71,8 +71,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v4.12.2.0_OSX
-        commit: e250aff55c2a6d09bc1dcb9a8f2b3f1bacdfc1f3
+        tag:  v5.2.0.0_Linux
+        commit: 7f16de8bcaef3de488c6d978660492130e1780ec
         x-checker-data:
           type: json
           url: https://api.github.com/repos/meganz/MEGAsync/releases
@@ -132,8 +132,8 @@ modules:
         buildsystem: cmake-ninja
         sources:
           - type: archive
-            url: https://c-ares.haxx.se/download/c-ares-1.24.0.tar.gz
-            sha256: c517de6d5ac9cd55a9b72c1541c3e25b84588421817b5f092850ac09a8df5103
+            url: https://c-ares.haxx.se/download/c-ares-1.25.0.tar.gz
+            sha256: 71832b93a48f5ff579c505f4869120c14e57b783275367207f1a98314aa724e5
             x-checker-data:
               type: html
               url: https://c-ares.haxx.se/download/
@@ -181,8 +181,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/23.11/libmediainfo_23.11.tar.xz
-            sha256: 197e54fcc79e3c0d5df44a8f58dc4e018bc2f85d13fa3bed54af3dc56d5e853d
+            url: http://mediaarea.net/download/source/libmediainfo/24.01/libmediainfo_24.01.tar.xz
+            sha256: a02dfc6689f485cec06fa12a3414c3c3aa2853b4dde18aeab4b54a56c8316259
         modules:
 
           - name: libzen
@@ -197,8 +197,8 @@ modules:
       - name: libuv
         sources:
           - type: archive
-            url: https://dist.libuv.org/dist/v1.47.0/libuv-v1.47.0.tar.gz
-            sha256: 20c37a4ca77a2107879473c6c8fa0dc1350e80045df98bfbe78f7cd6d7dd2965
+            url: https://dist.libuv.org/dist/v1.48.0/libuv-v1.48.0.tar.gz
+            sha256: 7f1db8ac368d89d1baf163bac1ea5fe5120697a73910c8ae6b2fffb3551d59fb
 
       - name: LibRaw
         config-opts:
