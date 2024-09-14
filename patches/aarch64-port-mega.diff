@@ -1,3 +1,27 @@
+diff --git a/src/MEGASync/mega/contrib/cmake/CMakeLists.txt b/src/MEGASync/mega/contrib/cmake/CMakeLists.txt
+index f5e0df9ac..3eb5ba819 100644
+--- a/src/MEGASync/mega/contrib/cmake/CMakeLists.txt
++++ b/src/MEGASync/mega/contrib/cmake/CMakeLists.txt
+@@ -703,7 +703,7 @@ ELSE(WIN32)
+                    resolv)
+        endif()
+     ELSE()
+-        SET(Mega_PlatformSpecificLibs ${Mega_PlatformSpecificLibs} crypto rt stdc++fs)
++        SET(Mega_PlatformSpecificLibs ${Mega_PlatformSpecificLibs} crypto rt)
+     ENDIF()
+ 
+     IF (CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
+diff --git a/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt b/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt
+index 2337847ef..fd32f5fcd 100644
+--- a/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt
++++ b/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt
+@@ -15,5 +15,5 @@ endif()
+ 
+ add_executable(build3rdParty build3rdParty.cpp)
+ if (NOT WIN32 AND NOT APPLE)
+-    target_link_libraries(build3rdParty stdc++fs)
++	#target_link_libraries(build3rdParty stdc++fs)
+ endif()
 diff --git a/src/MEGASync/mega/src/gfx/freeimage.cpp b/src/MEGASync/mega/src/gfx/freeimage.cpp
 index 2f685279a..a6883ed4e 100644
 --- a/src/MEGASync/mega/src/gfx/freeimage.cpp
@@ -11,3 +35,73 @@ index 2f685279a..a6883ed4e 100644
  #endif
  
      // Open video file
+diff --git a/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake b/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake
+index d347e5205..8888bfbbd 100644
+--- a/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake
++++ b/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake
+@@ -95,8 +95,9 @@ macro(load_sdklib_libraries)
+ 
+         find_package(PkgConfig REQUIRED) # For libraries loaded using pkg-config
+ 
+-        pkg_check_modules(cryptopp REQUIRED IMPORTED_TARGET libcrypto++)
+-        target_link_libraries(SDKlib PUBLIC PkgConfig::cryptopp) # TODO: Private for SDK core
++        add_library (cryptopp SHARED IMPORTED)
++        set_target_properties(cryptopp PROPERTIES IMPORTED_LOCATION /app/lib/libcryptopp.so)
++        target_link_libraries(SDKlib PUBLIC cryptopp)
+ 
+         pkg_check_modules(sodium REQUIRED IMPORTED_TARGET libsodium)
+         target_link_libraries(SDKlib PRIVATE PkgConfig::sodium)
+@@ -121,9 +122,9 @@ macro(load_sdklib_libraries)
+         endif()
+ 
+         if(USE_FREEIMAGE)
+-            # FreeImage has no pkg-config file. Use out own FindFreeImage.cmake to find the library.
+-            find_package(FreeImage REQUIRED)
+-            target_link_libraries(SDKlib PRIVATE FreeImage::FreeImage)
++            add_library (freeimage SHARED IMPORTED)
++            set_target_properties(freeimage PROPERTIES IMPORTED_LOCATION /app/lib/libfreeimage.so)
++            target_link_libraries(SDKlib PUBLIC freeimage)
+         endif()
+ 
+         if(USE_FFMPEG)
+diff --git a/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake b/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake
+index a7b0dc503..130f70803 100644
+--- a/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake
++++ b/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake
+@@ -336,7 +336,7 @@ load_sdklib_libraries()
+ if((NOT (WIN32 OR APPLE)) AND CMAKE_CXX_STANDARD LESS_EQUAL 17)
+     # Needed for std::experimental::filesystem
+     # Needed for c++17 and std::filesystem for some compilers. Not needed starting in gcc9, but harmless.
+-    target_link_libraries(SDKlib PRIVATE stdc++fs)
++	#target_link_libraries(SDKlib PRIVATE stdc++fs)
+ endif()
+ 
+ if(ENABLE_DRIVE_NOTIFICATIONS)
+diff --git a/src/MEGASync/mega/src/nodemanager.cpp b/src/MEGASync/mega/src/nodemanager.cpp
+index c08cecda3..1a9250c3d 100644
+--- a/src/MEGASync/mega/src/nodemanager.cpp
++++ b/src/MEGASync/mega/src/nodemanager.cpp
+@@ -28,6 +28,11 @@
+ 
+ namespace mega {
+ 
++#if defined(DEBUG)
++#else // DEBUG
++#define assert(cond)
++#endif // ! DEBUG
++
+ 
+ NodeManager::NodeManager(MegaClient& client)
+     : mClient(client)
+@@ -2063,4 +2068,9 @@ void NodeManager::Rootnodes::clear()
+     vault.setUndef();
+ }
+ 
++#if defined(DEBUG)
++#else // DEBUG
++#undef assert
++#endif // ! DEBUG
++
+ } // namespace
+
+

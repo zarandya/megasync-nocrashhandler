@@ -1,88 +1,170 @@
+diff --git a/src/MEGASync/CMakeLists.txt b/src/MEGASync/CMakeLists.txt
+index bba820eea..bf859f263 100644
+--- a/src/MEGASync/CMakeLists.txt
++++ b/src/MEGASync/CMakeLists.txt
+@@ -59,6 +59,8 @@ elseif (APPLE)
+     )
+ endif()
+ 
++include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
++
+ target_sources(MEGAsync
+     PRIVATE
+     ${MEGA_DESKTOP_APP_HEADERS}
+@@ -83,12 +85,12 @@ qt5_create_translation(QM_OUTPUT ${CMAKE_CURRENT_SOURCE_DIR} gui/translations/tr
+ add_custom_target(generate_ts DEPENDS ${QM_OUTPUT})
+ add_dependencies(MEGAsync generate_ts)
+ 
+-target_include_directories(MEGAsync PRIVATE ${CMAKE_CURRENT_LIST_DIR}
+-    ${CMAKE_CURRENT_LIST_DIR}/google_breakpad
+-)
++#target_include_directories(MEGAsync PRIVATE ${CMAKE_CURRENT_LIST_DIR}
++#    ${CMAKE_CURRENT_LIST_DIR}/google_breakpad
++#)
+ 
+ # Include modules in subdirectories with sources for Desktop App
+-add_subdirectory(google_breakpad)
++#add_subdirectory(google_breakpad)
+ 
+ include(control/control.cmake)
+ include(gui/gui.cmake)
+@@ -100,6 +102,7 @@ include(syncs/syncs.cmake)
+ include(transfers/transfers.cmake)
+ include(UserAttributesRequests/userattributesrequests.cmake)
+ 
++
+ target_compile_definitions(MEGAsync
+     PUBLIC
+     QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
+@@ -132,7 +135,7 @@ target_link_libraries(MEGAsync
+     Qt5::Network
+     Qt5::Qml
+     Qt5::Quick
+-    MEGA::google_breakpad
++    #MEGA::google_breakpad
+ )
+ 
+ # Install MEGAsync binary, dynamic libraries and, if needed, deploy Qt dependencies.
 diff --git a/src/MEGASync/MEGASync.pro b/src/MEGASync/MEGASync.pro
-index 2d196fa21..c8fca3eb4 100644
+index cc30aeedb..7b54b4c17 100644
 --- a/src/MEGASync/MEGASync.pro
 +++ b/src/MEGASync/MEGASync.pro
-@@ -120,7 +120,7 @@ include(transfers/transfers.pri)
+@@ -124,7 +124,7 @@ include(transfers/transfers.pri)
  include(notifications/notifications.pri)
  include(syncs/syncs.pri)
  include(platform/platform.pri)
 -include(google_breakpad/google_breakpad.pri)
 +#include(google_breakpad/google_breakpad.pri)
  include(qtlockedfile/qtlockedfile.pri)
+ include(stalled_issues/stalledissues.pri)
  
- unix:!macx {
 diff --git a/src/MEGASync/MegaApplication.cpp b/src/MEGASync/MegaApplication.cpp
-index e4502f349..bc7149580 100644
+index af1a99138..ed1131675 100644
 --- a/src/MEGASync/MegaApplication.cpp
 +++ b/src/MEGASync/MegaApplication.cpp
 @@ -4,7 +4,7 @@
  #include "QMegaMessageBox.h"
- #include "control/AppStatsEvents.h"
- #include "control/Utilities.h"
--#include "control/CrashHandler.h"
-+//#include "control/CrashHandler.h"
- #include "control/ExportProcessor.h"
- #include "EventUpdater.h"
- #include "platform/Platform.h"
-@@ -583,6 +583,7 @@ void MegaApplication::initialize()
+ #include "AppStatsEvents.h"
+ #include "Utilities.h"
+-#include "CrashHandler.h"
++//#include "CrashHandler.h"
+ #include "ExportProcessor.h"
+ #include "LoginController.h"
+ #include "AccountStatusController.h"
+@@ -603,6 +603,7 @@ void MegaApplication::initialize()
      if (preferences->isCrashed())
-     {       
+     {
          preferences->setCrashed(false);
-+		/*
++        /*
          QStringList reports = CrashHandler::instance()->getPendingCrashReports();
          if (reports.size())
          {
-@@ -625,6 +626,7 @@ void MegaApplication::initialize()
-                 }
-             });
+@@ -646,6 +647,7 @@ void MegaApplication::initialize()
+ #endif
+             }
          }
-+		*/
++        */
      }
  
      mTransferQuota = std::make_shared<TransferQuota>(mOsNotifications);
-@@ -2162,7 +2164,7 @@ void MegaApplication::cleanAll()
+@@ -2200,7 +2202,7 @@ void MegaApplication::cleanAll()
      appfinished = true;
  
  #ifndef DEBUG
 -    CrashHandler::instance()->Disable();
-+	//CrashHandler::instance()->Disable();
++    //CrashHandler::instance()->Disable();
  #endif
  
-     qInstallMsgHandler(0);
+     qInstallMessageHandler(0);
+diff --git a/src/MEGASync/control/control.cmake b/src/MEGASync/control/control.cmake
+index 8d6792428..89facb674 100644
+--- a/src/MEGASync/control/control.cmake
++++ b/src/MEGASync/control/control.cmake
+@@ -4,7 +4,7 @@ set(DESKTOP_APP_CONTROL_HEADERS
+     control/AppStatsEvents.h
+     control/AsyncHandler.h
+     control/ConnectivityChecker.h
+-    control/CrashHandler.h
++    #control/CrashHandler.h
+     control/DialogOpener.h
+     control/DownloadQueueController.h
+     control/EmailRequester.h
+@@ -45,7 +45,7 @@ set(DESKTOP_APP_CONTROL_SOURCES
+     control/AccountStatusController.cpp
+     control/AppStatsEvents.cpp
+     control/ConnectivityChecker.cpp
+-    control/CrashHandler.cpp
++    #control/CrashHandler.cpp
+     control/DialogOpener.cpp
+     control/DownloadQueueController.cpp
+     control/EmailRequester.cpp
 diff --git a/src/MEGASync/control/control.pri b/src/MEGASync/control/control.pri
-index df97f49fe..ae038fb90 100644
+index 71cce10f6..0bb6a2e4d 100644
 --- a/src/MEGASync/control/control.pri
 +++ b/src/MEGASync/control/control.pri
-@@ -12,7 +12,6 @@ SOURCES += $$PWD/HTTPServer.cpp \
-     $$PWD/MegaUploader.cpp \
+@@ -24,7 +24,6 @@ SOURCES += $$PWD/HTTPServer.cpp \
+     $$PWD/ProxyStatsEventHandler.cpp \
      $$PWD/TransferRemainingTime.cpp \
      $$PWD/UpdateTask.cpp \
 -    $$PWD/CrashHandler.cpp \
      $$PWD/ExportProcessor.cpp \
      $$PWD/UserAttributesManager.cpp \
      $$PWD/Utilities.cpp \
-@@ -34,7 +33,6 @@ HEADERS  +=  $$PWD/HTTPServer.h \
-     $$PWD/MegaUploader.h \
+@@ -59,7 +58,6 @@ HEADERS  +=  $$PWD/HTTPServer.h \
+     $$PWD/SetTypes.h \
      $$PWD/TransferRemainingTime.h \
      $$PWD/UpdateTask.h \
 -    $$PWD/CrashHandler.h \
      $$PWD/ExportProcessor.h \
      $$PWD/UserAttributesManager.h \
      $$PWD/Utilities.h \
+diff --git a/src/MEGASync/gui/MultiQFileDialog.cpp b/src/MEGASync/gui/MultiQFileDialog.cpp
+index 507e57e5e..01c5e741b 100644
+--- a/src/MEGASync/gui/MultiQFileDialog.cpp
++++ b/src/MEGASync/gui/MultiQFileDialog.cpp
+@@ -14,7 +14,7 @@ MultiQFileDialog::MultiQFileDialog(QWidget *parent, const QString &caption, cons
+       mMultiSelect(multiSelect),
+       mEnableOkButton(false)
+ {
+-    setOption(QFileDialog::DontUseNativeDialog, false);
++    setOption(QFileDialog::DontUseNativeDialog, true);
+ 
+     if (multiSelect)
+     {
 diff --git a/src/MEGASync/main.cpp b/src/MEGASync/main.cpp
-index 9a65c5496..acdd425f5 100644
+index 6832501a4..cd03e9d52 100644
 --- a/src/MEGASync/main.cpp
 +++ b/src/MEGASync/main.cpp
-@@ -3,7 +3,7 @@
- #include "platform/Platform.h"
- #include "qtlockedfile/qtlockedfile.h"
- #include "control/AppStatsEvents.h"
--#include "control/CrashHandler.h"
-+//#include "control/CrashHandler.h"
- #include "ScaleFactorManager.h"
+@@ -6,7 +6,7 @@
  #include "PowerOptions.h"
+ #include "ProxyStatsEventHandler.h"
+ #include "StatsEventHandler.h"
+-#include "CrashHandler.h"
++//#include "CrashHandler.h"
  
-@@ -489,7 +489,7 @@ int main(int argc, char *argv[])
+ #include <QFontDatabase>
+ #include <assert.h>
+@@ -513,7 +513,7 @@ int main(int argc, char *argv[])
      }
  
  #ifndef DEBUG
@@ -91,3 +173,22 @@ index 9a65c5496..acdd425f5 100644
  #endif
  
      QtLockedFile singleInstanceChecker(appLockPath);
+diff --git a/src/MEGAUpdateGenerator/CMakeLists.txt b/src/MEGAUpdateGenerator/CMakeLists.txt
+index ce4747fce..45f0a0a91 100644
+--- a/src/MEGAUpdateGenerator/CMakeLists.txt
++++ b/src/MEGAUpdateGenerator/CMakeLists.txt
+@@ -15,10 +15,11 @@ target_sources(MEGAUpdateGenerator
+ )
+ 
+ # Load and link needed libraries for the CHATlib target
+-find_package(cryptopp CONFIG REQUIRED)
++add_library (cryptopp SHARED IMPORTED)
++set_target_properties(cryptopp PROPERTIES IMPORTED_LOCATION /app/lib/libcryptopp.so)
+ target_link_libraries(MEGAUpdateGenerator
+     PRIVATE
+-    cryptopp::cryptopp
++    cryptopp
+     MEGA::SDKlib
+ )
+ 
+

@@ -31,48 +31,26 @@ cleanup:
 modules:
 
   - name: MEGAsync
-    buildsystem: simple
-    subdir: src
+    buildsystem: cmake
+    builddir: true
     build-options:
       env:
         DESKTOP_DESTDIR: /app
-    build-commands:
-      - |
-        set -e
-        sed -i \
-          's|QFileDialog::DontUseNativeDialog, false|QFileDialog::DontUseNativeDialog, true|' \
-          MEGASync/{gui/MultiQFileDialog,MegaApplication}.cpp
-      - |
-        set -e
-        cd MEGASync/mega
-        ./autogen.sh
-        ./configure \
-          --prefix=/app
-      - >-
-        qmake
-        PREFIX=/app
-        QMAKE_LIBDIR=/app/lib
-        CONFIG+=FULLREQUIREMENTS
-        MEGA.pro
-      - lrelease MEGASync/MEGASync.pro
-      - make -j${FLATPAK_BUILDER_N_JOBS}
-      - make install
-      - install -D MEGASync/megasync -t /app/bin/
+      cxxflags: -Wno-dev
+    config_opts:
+      -  -DCMAKE_BUILD_TYPE:STRING='None'
+      -  -DCMAKE_MODULE_PATH:PATH="src/MEGASync/mega/contrib/cmake/modules/packages"
+      -  -DCMAKE_SKIP_INSTALL_RPATH:BOOL='YES'
+      -  -DUSE_PDFIUM:STRING=0
     post-install:
-      # Automatically add build version and date into AppData
-      - |
-        set -e
-        VERSION=$(git describe --tags | sed -e 's/^[vV]//' -e 's/_Linux$//')
-        DATE=$(date -d @$(git show -s --format=%ct) +'%Y-%m-%d')
-        sed \
-          -e "s/@VERSION@/${VERSION}/g" \
-          -e "s/@DATE@/${DATE}/g" \
-          -i /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
+      - cp -r /app/usr/share/applications /app/share/applications
+      - cp -r /app/usr/share/icons /app/share/icons
+      - cp /app/usr/bin/megasync /app/bin/megasync
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v5.2.0.0_Linux
-        commit: 7f16de8bcaef3de488c6d978660492130e1780ec
+        tag:  v5.4.1.0_Linux
+        commit: 243d77ebb7239d7ff5cd8b7aea6c0158d1c6c813
         x-checker-data:
           type: json
           url: https://api.github.com/repos/meganz/MEGAsync/releases
@@ -94,6 +72,8 @@ modules:
         path: patches/aarch64-port-MegaSync.diff
       - type: patch
         path: patches/aarch64-port-mega.diff
+        #- type: patch
+        #path: patches/fix_includes.patch
     modules:
 
       - name: cryptopp
@@ -132,8 +112,8 @@ modules:
         buildsystem: cmake-ninja
         sources:
           - type: archive
-            url: https://c-ares.haxx.se/download/c-ares-1.25.0.tar.gz
-            sha256: 71832b93a48f5ff579c505f4869120c14e57b783275367207f1a98314aa724e5
+            url: https://github.com/c-ares/c-ares/releases/download/v1.33.1/c-ares-1.33.1.tar.gz
+            sha256: 06869824094745872fa26efd4c48e622b9bd82a89ef0ce693dc682a23604f415
             x-checker-data:
               type: html
               url: https://c-ares.haxx.se/download/
@@ -166,8 +146,8 @@ modules:
         sources:
           - type: git
             url: https://github.com/jedisct1/libsodium.git
-            tag: 1.0.19-RELEASE
-            commit: fb4533b0a941b3a5b1db5687d1b008a5853d1f29
+            tag: 1.0.20-RELEASE
+            commit: 9511c982fb1d046470a8b42aa36556cdb7da15de
             x-checker-data:
               type: json
               url: https://api.github.com/repos/jedisct1/libsodium/releases/latest
@@ -181,8 +161,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/24.01/libmediainfo_24.01.tar.xz
-            sha256: a02dfc6689f485cec06fa12a3414c3c3aa2853b4dde18aeab4b54a56c8316259
+            url: http://mediaarea.net/download/source/libmediainfo/24.06/libmediainfo_24.06.tar.xz
+            sha256: 0683f28a2475dc2417205ba528debccc407da4d9fa6516eb4b75b3ff7244e96e
         modules:
 
           - name: libzen
@@ -225,8 +205,8 @@ modules:
       - name: libXmu
         sources:
           - type: archive
-            url: https://www.x.org/releases/individual/lib/libXmu-1.1.4.tar.gz
-            sha256: 3091d711cdc1d8ea0f545a13b90d1464c3c3ab64778fd121f0d789b277a80289
+            url: https://www.x.org/releases/individual/lib/libXmu-1.2.1.tar.gz
+            sha256: bf0902583dd1123856c11e0a5085bd3c6e9886fbbd44954464975fd7d52eb599
             x-checker-data:
               type: html
               url: https://www.x.org/releases/individual/lib/
