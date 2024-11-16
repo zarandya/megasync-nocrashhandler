@@ -115,32 +115,6 @@ index 00000000..9354165b
 +  <url type="homepage">https://mega.nz/sync</url>
 +</component>
 
-From 8fed40c06cfe917f25fb583a239e32580cb4878c Mon Sep 17 00:00:00 2001
-From: Artem Polishchuk <ego.cordatus@gmail.com>
-Date: Thu, 19 Nov 2020 17:46:59 +0200
-Subject: [PATCH 2/3] build: install AppData manifest
-
----
- src/MEGASync/platform/platform.pri | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/src/MEGASync/platform/platform.pri b/src/MEGASync/platform/platform.pri
-index 1864f41e..d26b54f1 100644
---- a/src/MEGASync/platform/platform.pri
-+++ b/src/MEGASync/platform/platform.pri
-@@ -68,6 +68,11 @@ unix:!macx {
-         desktop.commands = update-desktop-database &> /dev/null || true
-         INSTALLS += desktop
- 
-+        # metainfo
-+        metainfo.path = $$DESKTOP_DESTDIR/share/metainfo
-+        metainfo.files = $$PWD/linux/data/nz.mega.MEGAsync.metainfo.xml
-+        INSTALLS += metainfo
-+
-         HICOLOR = $$DESKTOP_DESTDIR/share/icons/hicolor
- 
-         # icons
-
 From 95b7a393767dc74d30d4c07e6571ba616bff4b87 Mon Sep 17 00:00:00 2001
 From: Artem Polishchuk <ego.cordatus@gmail.com>
 Date: Mon, 23 Nov 2020 16:26:38 +0200

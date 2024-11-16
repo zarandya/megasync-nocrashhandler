@@ -49,8 +49,9 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v5.4.1.0_Linux
-        commit: 243d77ebb7239d7ff5cd8b7aea6c0158d1c6c813
+        tag:  v5.6.0.0_Linux
+        commit: 2b7e629e577bb613cabf214fcac9c1f2ced4eeaa
+        disable-submodules: true
         x-checker-data:
           type: json
           url: https://api.github.com/repos/meganz/MEGAsync/releases
@@ -58,12 +59,13 @@ modules:
           version-query: $tag | sub("^v"; "") | sub("_Linux$"; "")
           timestamp-query: map(select(.tag_name==$tag)) | first | .published_at
           is-main-source: true
+      - type: git
+        url:  https://github.com/meganz/sdk.git
+        commit: 60732886854198bbe11ebef897e93b36757f0913
+        dest: src/MEGASync/mega
       - type: shell
-        dest: src/MEGASync
         commands:
-          - sed -i 's/lessThan(GCC_VERSION, 5)/greaterThan(GCC_VERSION, 5)/' MEGASync.pro
-          - sed -i '/DEFINES += REQUIRE_HAVE_PDFIUM/d' MEGASync.pro
-      # https://github.com/meganz/MEGAsync/pull/510
+          - cp src/MEGASync/mega/.clang-format ./
       - type: patch
         path: patches/0001-feat-add-AppData-manifest.patch
       - type: patch
@@ -72,9 +74,8 @@ modules:
         path: patches/aarch64-port-MegaSync.diff
       - type: patch
         path: patches/aarch64-port-mega.diff
-        #- type: patch
-        #path: patches/fix_includes.patch
     modules:
+
 
       - name: cryptopp
         no-autogen: true
@@ -112,8 +113,8 @@ modules:
         buildsystem: cmake-ninja
         sources:
           - type: archive
-            url: https://github.com/c-ares/c-ares/releases/download/v1.33.1/c-ares-1.33.1.tar.gz
-            sha256: 06869824094745872fa26efd4c48e622b9bd82a89ef0ce693dc682a23604f415
+            url: https://github.com/c-ares/c-ares/releases/download/v1.34.3/c-ares-1.34.3.tar.gz
+            sha256: 26e1f7771da23e42a18fdf1e58912a396629e53a2ac71b130af93bbcfb90adbe
             x-checker-data:
               type: html
               url: https://c-ares.haxx.se/download/
@@ -161,8 +162,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/24.06/libmediainfo_24.06.tar.xz
-            sha256: 0683f28a2475dc2417205ba528debccc407da4d9fa6516eb4b75b3ff7244e96e
+            url: http://mediaarea.net/download/source/libmediainfo/24.11/libmediainfo_24.11.tar.xz
+            sha256: 96e44a617f90c8b63bb685ad53be6716b7df4221793c329780f02aea6e707aa1
         modules:
 
           - name: libzen
@@ -177,8 +178,8 @@ modules:
       - name: libuv
         sources:
           - type: archive
-            url: https://dist.libuv.org/dist/v1.48.0/libuv-v1.48.0.tar.gz
-            sha256: 7f1db8ac368d89d1baf163bac1ea5fe5120697a73910c8ae6b2fffb3551d59fb
+            url: https://dist.libuv.org/dist/v1.49.2/libuv-v1.49.2.tar.gz
+            sha256: 8c10706bd2cf129045c42b94799a92df9aaa75d05f07e99cf083507239bae5a8
 
       - name: LibRaw
         config-opts:
@@ -186,8 +187,8 @@ modules:
           - --disable-static
         sources:
           - type: archive
-            url: https://www.libraw.org/data/LibRaw-0.21.1.tar.gz
-            sha256: 630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd
+            url: https://www.libraw.org/data/LibRaw-0.21.3.tar.gz
+            sha256: dba34b7fc1143503942fa32ad9db43e94f714e62a4a856e91617f8f3e1e0aa5c
         cleanup:
           - /bin
 

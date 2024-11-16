@@ -1,27 +1,3 @@
-diff --git a/src/MEGASync/mega/contrib/cmake/CMakeLists.txt b/src/MEGASync/mega/contrib/cmake/CMakeLists.txt
-index f5e0df9ac..3eb5ba819 100644
---- a/src/MEGASync/mega/contrib/cmake/CMakeLists.txt
-+++ b/src/MEGASync/mega/contrib/cmake/CMakeLists.txt
-@@ -703,7 +703,7 @@ ELSE(WIN32)
-                    resolv)
-        endif()
-     ELSE()
--        SET(Mega_PlatformSpecificLibs ${Mega_PlatformSpecificLibs} crypto rt stdc++fs)
-+        SET(Mega_PlatformSpecificLibs ${Mega_PlatformSpecificLibs} crypto rt)
-     ENDIF()
- 
-     IF (CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
-diff --git a/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt b/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt
-index 2337847ef..fd32f5fcd 100644
---- a/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt
-+++ b/src/MEGASync/mega/contrib/cmake/build3rdParty/CMakeLists.txt
-@@ -15,5 +15,5 @@ endif()
- 
- add_executable(build3rdParty build3rdParty.cpp)
- if (NOT WIN32 AND NOT APPLE)
--    target_link_libraries(build3rdParty stdc++fs)
-+	#target_link_libraries(build3rdParty stdc++fs)
- endif()
 diff --git a/src/MEGASync/mega/src/gfx/freeimage.cpp b/src/MEGASync/mega/src/gfx/freeimage.cpp
 index 2f685279a..a6883ed4e 100644
 --- a/src/MEGASync/mega/src/gfx/freeimage.cpp

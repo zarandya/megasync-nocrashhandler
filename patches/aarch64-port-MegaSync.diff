@@ -45,32 +45,19 @@ index bba820eea..bf859f263 100644
  )
  
  # Install MEGAsync binary, dynamic libraries and, if needed, deploy Qt dependencies.
-diff --git a/src/MEGASync/MEGASync.pro b/src/MEGASync/MEGASync.pro
-index cc30aeedb..7b54b4c17 100644
---- a/src/MEGASync/MEGASync.pro
-+++ b/src/MEGASync/MEGASync.pro
-@@ -124,7 +124,7 @@ include(transfers/transfers.pri)
- include(notifications/notifications.pri)
- include(syncs/syncs.pri)
- include(platform/platform.pri)
--include(google_breakpad/google_breakpad.pri)
-+#include(google_breakpad/google_breakpad.pri)
- include(qtlockedfile/qtlockedfile.pri)
- include(stalled_issues/stalledissues.pri)
- 
 diff --git a/src/MEGASync/MegaApplication.cpp b/src/MEGASync/MegaApplication.cpp
 index af1a99138..ed1131675 100644
 --- a/src/MEGASync/MegaApplication.cpp
 +++ b/src/MEGASync/MegaApplication.cpp
 @@ -4,7 +4,7 @@
- #include "QMegaMessageBox.h"
- #include "AppStatsEvents.h"
- #include "Utilities.h"
+ #include "Avatar.h"
+ #include "ChangeLogDialog.h"
+ #include "CommonMessages.h"
 -#include "CrashHandler.h"
 +//#include "CrashHandler.h"
- #include "ExportProcessor.h"
- #include "LoginController.h"
- #include "AccountStatusController.h"
+ #include "CrashReportDialog.h"
+ #include "DateTimeFormatter.h"
+ #include "DialogOpener.h"
 @@ -603,6 +603,7 @@ void MegaApplication::initialize()
      if (preferences->isCrashed())
      {
@@ -118,26 +105,6 @@ index 8d6792428..89facb674 100644
      control/DialogOpener.cpp
      control/DownloadQueueController.cpp
      control/EmailRequester.cpp
-diff --git a/src/MEGASync/control/control.pri b/src/MEGASync/control/control.pri
-index 71cce10f6..0bb6a2e4d 100644
---- a/src/MEGASync/control/control.pri
-+++ b/src/MEGASync/control/control.pri
-@@ -24,7 +24,6 @@ SOURCES += $$PWD/HTTPServer.cpp \
-     $$PWD/ProxyStatsEventHandler.cpp \
-     $$PWD/TransferRemainingTime.cpp \
-     $$PWD/UpdateTask.cpp \
--    $$PWD/CrashHandler.cpp \
-     $$PWD/ExportProcessor.cpp \
-     $$PWD/UserAttributesManager.cpp \
-     $$PWD/Utilities.cpp \
-@@ -59,7 +58,6 @@ HEADERS  +=  $$PWD/HTTPServer.h \
-     $$PWD/SetTypes.h \
-     $$PWD/TransferRemainingTime.h \
-     $$PWD/UpdateTask.h \
--    $$PWD/CrashHandler.h \
-     $$PWD/ExportProcessor.h \
-     $$PWD/UserAttributesManager.h \
-     $$PWD/Utilities.h \
 diff --git a/src/MEGASync/gui/MultiQFileDialog.cpp b/src/MEGASync/gui/MultiQFileDialog.cpp
 index 507e57e5e..01c5e741b 100644
 --- a/src/MEGASync/gui/MultiQFileDialog.cpp
@@ -191,4 +158,23 @@ index ce4747fce..45f0a0a91 100644
      MEGA::SDKlib
  )
  
+diff --git a/contrib/cmake/modules/get_clang_format.cmake b/contrib/cmake/modules/get_clang_format.cmake
+index 69b43d5..9ad26a4 100644
+--- a/contrib/cmake/modules/get_clang_format.cmake
++++ b/contrib/cmake/modules/get_clang_format.cmake
+@@ -1,14 +1,2 @@
+ function(get_clang_format)
+-    message(STATUS "Downloading .clang-format")
+-
+-    set(FILE_URL "https://raw.githubusercontent.com/meganz/sdk/master/.clang-format")
+-    set(OUTPUT_FILE ${PROJECT_SOURCE_DIR}/.clang-format)
+-    file(DOWNLOAD ${FILE_URL} ${OUTPUT_FILE}
+-        SHOW_PROGRESS
+-        STATUS status
+-    )
+-
+-    if(NOT status EQUAL 0)
+-        message(FATAL_ERROR "Download failed with status: ${status}")
+-    endif()
+ endfunction()
 
