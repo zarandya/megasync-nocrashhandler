@@ -37,9 +37,9 @@ index bba820eea..bf859f263 100644
      PUBLIC
      QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
 @@ -132,7 +135,7 @@ target_link_libraries(MEGAsync
-     Qt5::Network
      Qt5::Qml
      Qt5::Quick
+     Qt5::QuickWidgets
 -    MEGA::google_breakpad
 +    #MEGA::google_breakpad
  )
@@ -158,10 +158,10 @@ index ce4747fce..45f0a0a91 100644
      MEGA::SDKlib
  )
  
-diff --git a/contrib/cmake/modules/get_clang_format.cmake b/contrib/cmake/modules/get_clang_format.cmake
+diff --git a/cmake/modules/get_clang_format.cmake b/cmake/modules/get_clang_format.cmake
 index 69b43d5..9ad26a4 100644
---- a/contrib/cmake/modules/get_clang_format.cmake
-+++ b/contrib/cmake/modules/get_clang_format.cmake
+--- a/cmake/modules/get_clang_format.cmake
++++ b/cmake/modules/get_clang_format.cmake
 @@ -1,14 +1,2 @@
  function(get_clang_format)
 -    message(STATUS "Downloading .clang-format")

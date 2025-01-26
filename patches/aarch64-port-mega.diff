@@ -11,10 +11,10 @@ index 2f685279a..a6883ed4e 100644
  #endif
  
      // Open video file
-diff --git a/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake b/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake
+diff --git a/src/MEGASync/mega/cmake/modules/sdklib_libraries.cmake b/src/MEGASync/mega/cmake/modules/sdklib_libraries.cmake
 index d347e5205..8888bfbbd 100644
---- a/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake
-+++ b/src/MEGASync/mega/contrib/cmake/modules/sdklib_libraries.cmake
+--- a/src/MEGASync/mega/cmake/modules/sdklib_libraries.cmake
++++ b/src/MEGASync/mega/cmake/modules/sdklib_libraries.cmake
 @@ -95,8 +95,9 @@ macro(load_sdklib_libraries)
  
          find_package(PkgConfig REQUIRED) # For libraries loaded using pkg-config
@@ -40,10 +40,10 @@ index d347e5205..8888bfbbd 100644
          endif()
  
          if(USE_FFMPEG)
-diff --git a/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake b/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake
+diff --git a/src/MEGASync/mega/cmake/modules/sdklib_target.cmake b/src/MEGASync/mega/cmake/modules/sdklib_target.cmake
 index a7b0dc503..130f70803 100644
---- a/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake
-+++ b/src/MEGASync/mega/contrib/cmake/modules/sdklib_target.cmake
+--- a/src/MEGASync/mega/cmake/modules/sdklib_target.cmake
++++ b/src/MEGASync/mega/cmake/modules/sdklib_target.cmake
 @@ -336,7 +336,7 @@ load_sdklib_libraries()
  if((NOT (WIN32 OR APPLE)) AND CMAKE_CXX_STANDARD LESS_EQUAL 17)
      # Needed for std::experimental::filesystem
