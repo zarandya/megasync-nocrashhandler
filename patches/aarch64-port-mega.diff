@@ -58,17 +58,17 @@ index c08cecda3..1a9250c3d 100644
 --- a/src/MEGASync/mega/src/nodemanager.cpp
 +++ b/src/MEGASync/mega/src/nodemanager.cpp
 @@ -28,6 +28,11 @@
- 
- namespace mega {
- 
+ #include "mega/megaapp.h"
+ #include "mega/megaclient.h"
+ #include "mega/share.h"
++
 +#if defined(DEBUG)
 +#else // DEBUG
 +#define assert(cond)
 +#endif // ! DEBUG
-+
  
- NodeManager::NodeManager(MegaClient& client)
-     : mClient(client)
+ namespace mega {
+ 
 @@ -2063,4 +2068,9 @@ void NodeManager::Rootnodes::clear()
      vault.setUndef();
  }

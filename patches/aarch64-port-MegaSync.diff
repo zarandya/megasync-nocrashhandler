@@ -122,16 +122,14 @@ diff --git a/src/MEGASync/main.cpp b/src/MEGASync/main.cpp
 index 6832501a4..cd03e9d52 100644
 --- a/src/MEGASync/main.cpp
 +++ b/src/MEGASync/main.cpp
-@@ -6,7 +6,7 @@
- #include "PowerOptions.h"
- #include "ProxyStatsEventHandler.h"
- #include "StatsEventHandler.h"
+@@ -1,5 +1,5 @@
+ #ifndef DEBUG
 -#include "CrashHandler.h"
 +//#include "CrashHandler.h"
+ #endif
  
- #include <QFontDatabase>
- #include <assert.h>
-@@ -513,7 +513,7 @@ int main(int argc, char *argv[])
+ #include "MegaApplication.h"
+@@ -550,7 +550,7 @@ int main(int argc, char *argv[])
      }
  
  #ifndef DEBUG
