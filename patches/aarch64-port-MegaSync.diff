@@ -88,23 +88,23 @@ index 8d6792428..89facb674 100644
 --- a/src/MEGASync/control/control.cmake
 +++ b/src/MEGASync/control/control.cmake
 @@ -4,7 +4,7 @@ set(DESKTOP_APP_CONTROL_HEADERS
-     control/AppStatsEvents.h
-     control/AsyncHandler.h
-     control/ConnectivityChecker.h
--    control/CrashHandler.h
-+    #control/CrashHandler.h
-     control/DialogOpener.h
-     control/DownloadQueueController.h
-     control/EmailRequester.h
-@@ -45,7 +45,7 @@ set(DESKTOP_APP_CONTROL_SOURCES
-     control/AccountStatusController.cpp
-     control/AppStatsEvents.cpp
-     control/ConnectivityChecker.cpp
--    control/CrashHandler.cpp
-+    #control/CrashHandler.cpp
-     control/DialogOpener.cpp
-     control/DownloadQueueController.cpp
-     control/EmailRequester.cpp
+     ${CMAKE_CURRENT_LIST_DIR}/AppStatsEvents.h
+     ${CMAKE_CURRENT_LIST_DIR}/AsyncHandler.h
+     ${CMAKE_CURRENT_LIST_DIR}/ConnectivityChecker.h
+-    ${CMAKE_CURRENT_LIST_DIR}/CrashHandler.h
++    #${CMAKE_CURRENT_LIST_DIR}/CrashHandler.h
+     ${CMAKE_CURRENT_LIST_DIR}/DialogOpener.h
+     ${CMAKE_CURRENT_LIST_DIR}/DownloadQueueController.h
+     ${CMAKE_CURRENT_LIST_DIR}/EmailRequester.h
+@@ -57,7 +57,7 @@ set(DESKTOP_APP_CONTROL_SOURCES
+     ${CMAKE_CURRENT_LIST_DIR}/AppState.cpp
+     ${CMAKE_CURRENT_LIST_DIR}/AppStatsEvents.cpp
+     ${CMAKE_CURRENT_LIST_DIR}/ConnectivityChecker.cpp
+-    ${CMAKE_CURRENT_LIST_DIR}/CrashHandler.cpp
++    #${CMAKE_CURRENT_LIST_DIR}/CrashHandler.cpp
+     ${CMAKE_CURRENT_LIST_DIR}/DialogOpener.cpp
+     ${CMAKE_CURRENT_LIST_DIR}/DownloadQueueController.cpp
+     ${CMAKE_CURRENT_LIST_DIR}/EmailRequester.cpp
 diff --git a/src/MEGASync/gui/MultiQFileDialog.cpp b/src/MEGASync/gui/MultiQFileDialog.cpp
 index 507e57e5e..01c5e741b 100644
 --- a/src/MEGASync/gui/MultiQFileDialog.cpp
@@ -175,4 +175,27 @@ index 69b43d5..9ad26a4 100644
 -        message(FATAL_ERROR "Download failed with status: ${status}")
 -    endif()
  endfunction()
+
+diff --git a/src/MEGAAutoTests/UnitTests/CMakeLists.txt b/src/MEGAAutoTests/UnitTests/CMakeLists.txt
+index 7051809..ae173d7 100644
+--- a/src/MEGAAutoTests/UnitTests/CMakeLists.txt
++++ b/src/MEGAAutoTests/UnitTests/CMakeLists.txt
+@@ -54,7 +54,7 @@ target_sources(UnitTests
+ )
+ 
+ target_include_directories(UnitTests PRIVATE ${CMAKE_CURRENT_LIST_DIR}
+-    ${CMAKE_CURRENT_LIST_DIR}/google_breakpad
++	#${CMAKE_CURRENT_LIST_DIR}/google_breakpad
+ )
+ 
+ set(ExecutableTarget UnitTests)
+@@ -84,7 +84,7 @@ target_link_libraries(UnitTests
+     Qt5::Qml
+     Qt5::Quick
+     Qt5::QuickWidgets
+-    MEGA::google_breakpad
++	#MEGA::google_breakpad
+     )
+ 
+ target_include_directories(UnitTests PRIVATE ../3rdparty ${MegaSyncDir})
 
