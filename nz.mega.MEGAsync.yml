@@ -1,7 +1,7 @@
 id: nz.mega.MEGAsync
 sdk: org.kde.Sdk
 runtime: org.kde.Platform
-runtime-version: 5.15-23.08
+runtime-version: 5.15-24.08
 finish-args:
   - --device=dri
   # The user should use flatseal to grant these permissions 
@@ -45,7 +45,7 @@ modules:
     post-install:
       - cp -r /app/usr/share/applications /app/share/applications
       - cp -r /app/usr/share/icons /app/share/icons
-      - cp /app/usr/bin/megasync /app/bin/megasync
+      - cp /app/usr/bin/* /app/bin/
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
@@ -76,6 +76,8 @@ modules:
         path: patches/aarch64-port-MegaSync.diff
       - type: patch
         path: patches/aarch64-port-mega.diff
+      - type: patch
+        path: patches/set-DontUseNativeDialog-true.patch
     modules:
 
 
@@ -144,6 +146,8 @@ modules:
             revision: r1903
           - type: patch
             path: patches/freeimage-makefile-install.patch
+          - type: patch
+            path: patches/freeimage-missing-includes.patch
 
       - name: libsodium
         sources:
@@ -164,8 +168,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/25.03/libmediainfo_25.03.tar.xz
-            sha256: 35f1fdab81239ca355c6de358a84fbde0477fed8eb350e5dfef6a598145c5207
+            url: http://mediaarea.net/download/source/libmediainfo/25.04/libmediainfo_25.04.tar.xz
+            sha256: ad45ed7c9db7807aa803845ca88bad9526aa8da883a58127e5390aaa2d81bbb1
         modules:
 
           - name: libzen
@@ -180,8 +184,8 @@ modules:
       - name: libuv
         sources:
           - type: archive
-            url: https://dist.libuv.org/dist/v1.50.0/libuv-v1.50.0.tar.gz
-            sha256: 6dc2b39aa7fa66c04e2e015bf47738b84e1c6b86b8987d57dd432d149d77ee25
+            url: https://dist.libuv.org/dist/v1.51.0/libuv-v1.51.0.tar.gz
+            sha256: 5f0557b90b1106de71951a3c3931de5e0430d78da1d9a10287ebc7a3f78ef8eb
 
       - name: LibRaw
         config-opts:

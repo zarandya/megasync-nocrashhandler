@@ -1,0 +1,62 @@
+--- a/FreeImage/tags/3.18.0/Source/ZLib/gzlib.c	2020-11-23 15:42:10.650036428 +0200
++++ b/FreeImage/tags/3.18.0/Source/ZLib/gzlib.c	2020-11-23 15:42:45.868221995 +0200
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "gzguts.h"
++#include <unistd.h>
+ 
+ #if defined(_WIN32) && !defined(__BORLANDC__) && !defined(__MINGW32__)
+ #  define LSEEK _lseeki64
+--- a/FreeImage/tags/3.18.0/Source/ZLib/gzread.c	2020-11-23 15:42:10.650036428 +0200
++++ b/FreeImage/tags/3.18.0/Source/ZLib/gzread.c	2020-11-23 15:42:45.868221995 +0200
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "gzguts.h"
++#include <unistd.h>
+ 
+ /* Local functions */
+ local int gz_load OF((gz_statep, unsigned char *, unsigned, unsigned *));
+--- a/FreeImage/tags/3.18.0/Source/ZLib/gzwrite.c	2020-11-23 15:42:10.650036428 +0200
++++ b/FreeImage/tags/3.18.0/Source/ZLib/gzwrite.c	2020-11-23 15:42:45.868221995 +0200
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "gzguts.h"
++#include <unistd.h>
+ 
+ /* Local functions */
+ local int gz_init OF((gz_statep));
+--- a/FreeImage/tags/3.18.0/Source/LibJXR/image/decode/segdec.c	2020-11-23 15:42:10.650036428 +0200
++++ b/FreeImage/tags/3.18.0/Source/LibJXR/image/decode/segdec.c	2020-11-23 15:42:45.868221995 +0200
+@@ -28,6 +28,7 @@
+ 
+ #include "strcodec.h"
+ #include "decode.h"
++#include <byteswap.h>
+ 
+ #ifdef MEM_TRACE
+ #define TRACE_MALLOC    1
+@@ -61,9 +62,9 @@
+     U32  v;
+     v = ((U16 *) pv)[0];
+     v |= ((U32)((U16 *) pv)[1]) << 16;
+-    return _byteswap_ulong(v);
++    return bswap_32(v);
+ #else // _M_IA64
+-    return _byteswap_ulong(*(U32*)pv);
++    return bswap_32(*(U32*)pv);
+ #endif // _M_IA64
+ #endif // _BIG__ENDIAN_
+ }
+--- a/FreeImage/tags/3.18.0/Source/LibJXR/jxrgluelib/JXRGlueJxr.c	2020-11-23 15:42:10.650036428 +0200
++++ b/FreeImage/tags/3.18.0/Source/LibJXR/jxrgluelib/JXRGlueJxr.c	2020-11-23 15:42:45.868221995 +0200
+@@ -28,6 +28,7 @@
+ //*@@@---@@@@******************************************************************
+ #include <limits.h>
+ #include <JXRGlue.h>
++#include <wchar.h>
+ 
+ 
+ static const char szHDPhotoFormat[] = "<dc:format>image/vnd.ms-photo</dc:format>";

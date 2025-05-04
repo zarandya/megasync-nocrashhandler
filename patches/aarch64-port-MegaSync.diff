@@ -105,19 +105,6 @@ index 8d6792428..89facb674 100644
      ${CMAKE_CURRENT_LIST_DIR}/DialogOpener.cpp
      ${CMAKE_CURRENT_LIST_DIR}/DownloadQueueController.cpp
      ${CMAKE_CURRENT_LIST_DIR}/EmailRequester.cpp
-diff --git a/src/MEGASync/gui/MultiQFileDialog.cpp b/src/MEGASync/gui/MultiQFileDialog.cpp
-index 507e57e5e..01c5e741b 100644
---- a/src/MEGASync/gui/MultiQFileDialog.cpp
-+++ b/src/MEGASync/gui/MultiQFileDialog.cpp
-@@ -14,7 +14,7 @@ MultiQFileDialog::MultiQFileDialog(QWidget *parent, const QString &caption, cons
-       mMultiSelect(multiSelect),
-       mEnableOkButton(false)
- {
--    setOption(QFileDialog::DontUseNativeDialog, false);
-+    setOption(QFileDialog::DontUseNativeDialog, true);
- 
-     if (multiSelect)
-     {
 diff --git a/src/MEGASync/main.cpp b/src/MEGASync/main.cpp
 index 6832501a4..cd03e9d52 100644
 --- a/src/MEGASync/main.cpp
