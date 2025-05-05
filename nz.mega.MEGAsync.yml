@@ -37,6 +37,8 @@ modules:
       env:
         DESKTOP_DESTDIR: /app
       cxxflags: -Wno-dev
+      build-commands:
+        - dnf install -y xorg-x11-server-Xvfb
     config_opts:
       -  -DCMAKE_BUILD_TYPE:STRING='None'
       -  -DCMAKE_MODULE_PATH:PATH="src/MEGASync/mega/contrib/cmake/modules/packages"
