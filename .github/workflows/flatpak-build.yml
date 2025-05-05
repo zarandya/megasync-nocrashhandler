@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: nz.mega.MEGAsync.aarch64.flatpak
+          bundle: nz.mega.MEGAsync-${{ github.ref_name }}.aarch64.flatpak
           manifest-path: nz.mega.MEGAsync.yml
           cache-key: flatpak-builder-${{ github.sha }}-aarch64
           arch: aarch64
@@ -25,10 +25,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: flatpak-bundle-aarch64
-          path: nz.mega.MEGAsync.aarch64.flatpak
+          path: nz.mega.MEGAsync-${{ github.ref_name }}.aarch64.flatpak
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: nz.mega.MEGAsync.aarch64.flatpak
+          files: nz.mega.MEGAsync-${{ github.ref_name }}.aarch64.flatpak
