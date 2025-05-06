@@ -5,7 +5,15 @@ I am not affiliated with Mega.
 
 ## Install instructions
 
-Install `flatpak`, `flatpak-builder`, and use `flatpak` to install `org.kde.Sdk`. 
+First, [install flatpak and set up flathub](https://flathub.org/setup) (required to download dependencies).
+Then, download the prebuilt .flatpak from [GitHub releases](https://github.com/zarandya/megasync-nocrashhandler/releases), and install it with
+```
+flatpak install --user /path/to/nz.mega.MEGAsync-version_number.aarch64.flatpak
+```
+
+----
+
+Or, if you want to manually build it, install `flatpak`, `flatpak-builder`, and use `flatpak` to install `org.kde.Sdk`. 
 
 `flatpak-builder --user --install --force-clean build nz.mega.MEGAsync.yml`
 
