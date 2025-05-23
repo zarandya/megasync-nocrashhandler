@@ -49,8 +49,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v5.10.1.0_Linux
-        commit: 2fb633d402a13bbbfa728f0bb4caaa43bad75929
+        tag:  v5.11.1.0_Linux
+        commit: 6a03dd38be62352126b7374ef6735c600d2f7365
         disable-submodules: true
         x-checker-data:
           type: json
@@ -61,7 +61,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: b53514e72d569be8993cbe4b2c991da0ded08b78
+        commit: f60237a8d46cec993137065d39138fd42c043271 
         dest: src/MEGASync/mega
       - type: shell
         commands:
