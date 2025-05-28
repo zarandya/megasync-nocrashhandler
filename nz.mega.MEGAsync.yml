@@ -42,6 +42,8 @@ modules:
       -  -DCMAKE_MODULE_PATH:PATH="src/MEGASync/mega/contrib/cmake/modules/packages"
       -  -DCMAKE_SKIP_INSTALL_RPATH:BOOL='YES'
       -  -DUSE_PDFIUM:STRING=0
+      -  -DUSE_BREAKPAD:STRING=0
+      -  -DENABLE_DESKTOP_APP_TESTS:STRING=0
     post-install:
       - cp -r /app/usr/share/applications /app/share/applications
       - cp -r /app/usr/share/icons /app/share/icons
@@ -49,8 +51,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v5.11.1.0_Linux
-        commit: 6a03dd38be62352126b7374ef6735c600d2f7365
+        tag:  v5.12.0.1_Linux
+        commit: 782c10766805021de7efeab6c34794ce097ab140
         disable-submodules: true
         x-checker-data:
           type: json
@@ -61,7 +63,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: f60237a8d46cec993137065d39138fd42c043271 
+        commit: e77b97393b57450c7bfe7227b79f2405468077c7 
         dest: src/MEGASync/mega
       - type: shell
         commands:
@@ -70,8 +72,6 @@ modules:
           - cp -r src/MEGASync/gui/images/*.svg src/MEGAAutoTests/UnitTests/gui/images/
       - type: patch
         path: patches/0001-feat-add-AppData-manifest.patch
-      - type: patch
-        path: patches/0001-freeimage-cap-truncated.patch
       - type: patch
         path: patches/aarch64-port-MegaSync.diff
       - type: patch
