@@ -45,14 +45,14 @@ modules:
       -  -DUSE_BREAKPAD:STRING=0
       -  -DENABLE_DESKTOP_APP_TESTS:STRING=0
     post-install:
-      - cp -r /app/usr/share/applications /app/share/applications
-      - cp -r /app/usr/share/icons /app/share/icons
+      - mkdir -p /app/share
+      - cp -r /app/usr/share/* /app/share/
       - cp /app/usr/bin/* /app/bin/
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v5.12.0.1_Linux
-        commit: 782c10766805021de7efeab6c34794ce097ab140
+        tag:  v5.15.0.1_Linux
+        commit: 7707e13c2e767b2cf7282ea305f21821dd126a81
         disable-submodules: true
         x-checker-data:
           type: json
@@ -63,7 +63,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: e77b97393b57450c7bfe7227b79f2405468077c7 
+        commit: 784ad98a7d55536fa4b2c4d2cf22016a3e416663 
         dest: src/MEGASync/mega
       - type: shell
         commands:
@@ -168,8 +168,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/25.04/libmediainfo_25.04.tar.xz
-            sha256: ad45ed7c9db7807aa803845ca88bad9526aa8da883a58127e5390aaa2d81bbb1
+            url: http://mediaarea.net/download/source/libmediainfo/25.07.1/libmediainfo_25.07.1.tar.xz
+            sha256: 8e6e92f20cf2ca7ce8aba53ad0b589a89a2fa7dfd3e7971d3850109acd49bed5
         modules:
 
           - name: libzen
