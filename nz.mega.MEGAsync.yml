@@ -51,8 +51,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v5.15.0.1_Linux
-        commit: 7707e13c2e767b2cf7282ea305f21821dd126a81
+        tag:  v6.0.0.3_Linux
+        commit: 8178c167dc1de13b373c7e4a948221e9c72900ef
         disable-submodules: true
         x-checker-data:
           type: json
@@ -63,7 +63,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: 784ad98a7d55536fa4b2c4d2cf22016a3e416663 
+        commit: dfb2c67fd7ba43bacf80b13f22e6480501ff2b1b 
         dest: src/MEGASync/mega
       - type: shell
         commands:
@@ -168,8 +168,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/25.07.1/libmediainfo_25.07.1.tar.xz
-            sha256: 8e6e92f20cf2ca7ce8aba53ad0b589a89a2fa7dfd3e7971d3850109acd49bed5
+            url: http://mediaarea.net/download/source/libmediainfo/25.10/libmediainfo_25.10.tar.xz
+            sha256: ad13d9797b046ce39d0c65a6f81d2aef2429734c21865a6a4c592c7c01f249dd
         modules:
 
           - name: libzen
