@@ -51,8 +51,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v6.0.0.3_Linux
-        commit: 8178c167dc1de13b373c7e4a948221e9c72900ef
+        tag:  v6.1.0.2_Linux
+        commit: 324623e71fab7aa4c01eafed6d4c698076d4fecd
         disable-submodules: true
         x-checker-data:
           type: json
@@ -63,7 +63,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: dfb2c67fd7ba43bacf80b13f22e6480501ff2b1b 
+        commit: 63daa4d1be2944210b974e5f7006641cbd353b80 
         dest: src/MEGASync/mega
       - type: shell
         commands:
@@ -117,8 +117,8 @@ modules:
         buildsystem: cmake-ninja
         sources:
           - type: archive
-            url: https://github.com/c-ares/c-ares/releases/download/v1.34.5/c-ares-1.34.5.tar.gz
-            sha256: 7d935790e9af081c25c495fd13c2cfcda4792983418e96358ef6e7320ee06346
+            url: https://github.com/c-ares/c-ares/releases/download/v1.34.6/c-ares-1.34.6.tar.gz
+            sha256: 912dd7cc3b3e8a79c52fd7fb9c0f4ecf0aaa73e45efda880266a2d6e26b84ef5
             x-checker-data:
               type: html
               url: https://c-ares.haxx.se/download/
