@@ -1,0 +1,70 @@
+--- a/src/MEGASync/MegaApplication.cpp
++++ b/src/MEGASync/MegaApplication.cpp
+@@ -813,7 +813,7 @@ void MegaApplication::changeLanguage(QString languageCode)
+ #ifdef Q_OS_LINUX
+ void MegaApplication::setTrayIconFromTheme(QString icon)
+ {
+-    QString name = QString(icon).replace(QString::fromUtf8("://images/"), QString::fromUtf8("mega")).replace(QString::fromUtf8(".svg"),QString::fromUtf8(""));
++    QString name = QString(icon).replace(QString::fromUtf8("://images/"), QString::fromUtf8("nz.mega.MEGAsync.")).replace(QString::fromUtf8(".svg"),QString::fromUtf8(""));
+     const bool needsToBeUpdated{name != trayIcon->icon().name()};
+     if(needsToBeUpdated)
+     {
+--- a/src/MEGASync/gui/gui.cmake
++++ b/src/MEGASync/gui/gui.cmake
+@@ -493,43 +493,43 @@ if (UNIX AND NOT APPLE)
+ 
+     # color
+     set(HICOLOR "share/icons/hicolor/scalable/status")
+-    install(FILES gui/images/synching.svg RENAME megasynching.svg
++    install(FILES gui/images/synching.svg RENAME nz.mega.MEGAsync.synching.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/warning.svg RENAME megawarning.svg
++    install(FILES gui/images/warning.svg RENAME nz.mega.MEGAsync.warning.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/alert.svg RENAME megaalert.svg
++    install(FILES gui/images/alert.svg RENAME nz.mega.MEGAsync.alert.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/paused.svg RENAME megapaused.svg
++    install(FILES gui/images/paused.svg RENAME nz.mega.MEGAsync.paused.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/logging.svg RENAME megalogging.svg
++    install(FILES gui/images/logging.svg RENAME nz.mega.MEGAsync.logging.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/uptodate.svg RENAME megauptodate.svg
++    install(FILES gui/images/uptodate.svg RENAME nz.mega.MEGAsync.uptodate.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+ 
+     # mono-dark
+     set(MONOCOLOR "share/icons/ubuntu-mono-dark/status/24")
+-    install(FILES gui/images/synching_clear.svg RENAME megasynching.svg
++    install(FILES gui/images/synching_clear.svg RENAME nz.mega.MEGAsync.synching.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/warning_clear.svg RENAME megawarning.svg
++    install(FILES gui/images/warning_clear.svg RENAME nz.mega.MEGAsync.warning.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/alert_clear.svg RENAME megaalert.svg
++    install(FILES gui/images/alert_clear.svg RENAME nz.mega.MEGAsync.alert.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/paused_clear.svg RENAME megapaused.svg
++    install(FILES gui/images/paused_clear.svg RENAME nz.mega.MEGAsync.paused.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/logging_clear.svg RENAME megalogging.svg
++    install(FILES gui/images/logging_clear.svg RENAME nz.mega.MEGAsync.logging.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/uptodate_clear.svg RENAME megauptodate.svg
++    install(FILES gui/images/uptodate_clear.svg RENAME nz.mega.MEGAsync.uptodate.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+ 
+

@@ -51,8 +51,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v6.1.0.2_Linux
-        commit: 324623e71fab7aa4c01eafed6d4c698076d4fecd
+        tag:  v6.1.1.0_Linux
+        commit: feecffeee65ec272ad279cc513ff6b4dfd7f7fea
         disable-submodules: true
         x-checker-data:
           type: json
@@ -63,7 +63,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: 63daa4d1be2944210b974e5f7006641cbd353b80 
+        commit: 1c13b13cb90c77f61e38d228b73a4a6fa8df67ca 
         dest: src/MEGASync/mega
       - type: shell
         commands:
@@ -78,6 +78,8 @@ modules:
         path: patches/aarch64-port-mega.diff
       - type: patch
         path: patches/set-DontUseNativeDialog-true.patch
+      - type: patch
+        path: patches/icon-rename.patch
     modules:
 
 
@@ -153,14 +155,16 @@ modules:
         sources:
           - type: git
             url: https://github.com/jedisct1/libsodium.git
-            tag: 1.0.20-RELEASE
-            commit: 9511c982fb1d046470a8b42aa36556cdb7da15de
+            tag: 1.0.21-RELEASE
+            commit: d24faf56214469b354b01c8ba36257e04737101e
             x-checker-data:
               type: json
               url: https://api.github.com/repos/jedisct1/libsodium/releases/latest
               tag-query: .tag_name
               version-query: .tag_name
               timestamp-query: .published_at
+          - type: patch
+            path: patches/6702f69bef6044163acc7715e6ac7e430890ce78.diff
 
       - name: libmediainfo
         buildsystem: cmake-ninja
