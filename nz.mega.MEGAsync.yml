@@ -51,8 +51,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v6.1.1.0_Linux
-        commit: feecffeee65ec272ad279cc513ff6b4dfd7f7fea
+        tag:  v6.2.1.0_Linux
+        commit: cca47ffe35cced6248bf05498d8931f0a833abed
         disable-submodules: true
         x-checker-data:
           type: json
@@ -63,7 +63,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: 1c13b13cb90c77f61e38d228b73a4a6fa8df67ca 
+        commit: 663549152ccf05866ffe059d9b6f4be54dc10cce 
         dest: src/MEGASync/mega
       - type: shell
         commands:
@@ -79,7 +79,7 @@ modules:
       - type: patch
         path: patches/set-DontUseNativeDialog-true.patch
       - type: patch
-        path: patches/icon-rename.patch
+        path: patches/0001-rename-tray-icons-to-work-in-flatpak-container.patch
     modules:
 
 
@@ -172,8 +172,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/25.10/libmediainfo_25.10.tar.xz
-            sha256: ad13d9797b046ce39d0c65a6f81d2aef2429734c21865a6a4c592c7c01f249dd
+            url: http://mediaarea.net/download/source/libmediainfo/26.01/libmediainfo_26.01.tar.xz
+            sha256: bcd3d2cc12cf108ca0fbad07568b303257e72afd8ff73d05cfe6b7aa0e66a1c5
         modules:
 
           - name: libzen
@@ -188,8 +188,8 @@ modules:
       - name: libuv
         sources:
           - type: archive
-            url: https://dist.libuv.org/dist/v1.51.0/libuv-v1.51.0.tar.gz
-            sha256: 5f0557b90b1106de71951a3c3931de5e0430d78da1d9a10287ebc7a3f78ef8eb
+            url: https://dist.libuv.org/dist/v1.52.1/libuv-v1.52.1.tar.gz
+            sha256: 66d511b9e6e334c0e62279eb234fbfb2b3110b1479c09b95b44c7afca8cff9e7
 
       - name: LibRaw
         config-opts:
@@ -197,8 +197,8 @@ modules:
           - --disable-static
         sources:
           - type: archive
-            url: https://www.libraw.org/data/LibRaw-0.21.3.tar.gz
-            sha256: dba34b7fc1143503942fa32ad9db43e94f714e62a4a856e91617f8f3e1e0aa5c
+            url: https://www.libraw.org/data/LibRaw-0.22.1.tar.gz
+            sha256: a789dc4e2409e2901d93793a4e0b80c7b49d0d97cf6ad71c850eb7616acfd786
         cleanup:
           - /bin
 
@@ -216,8 +216,8 @@ modules:
       - name: libXmu
         sources:
           - type: archive
-            url: https://www.x.org/releases/individual/lib/libXmu-1.2.1.tar.gz
-            sha256: bf0902583dd1123856c11e0a5085bd3c6e9886fbbd44954464975fd7d52eb599
+            url: https://www.x.org/releases/individual/lib/libXmu-1.3.1.tar.gz
+            sha256: 5c8f44e26ccc9b14188599524e67ce788a205b38e297834babdeb12090be835b
             x-checker-data:
               type: html
               url: https://www.x.org/releases/individual/lib/

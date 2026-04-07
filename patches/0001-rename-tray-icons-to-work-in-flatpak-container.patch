@@ -1,0 +1,181 @@
+From bc057f8328047f19230e80ad4b12170c98a16d7e Mon Sep 17 00:00:00 2001
+From: Almos Zarandy <git@almoszarandy.me>
+Date: Tue, 7 Apr 2026 10:56:20 +0100
+Subject: [PATCH] rename tray icons to work in flatpak container
+
+---
+ src/MEGASync/gui/TrayIconManager.cpp |   4 +-
+ src/MEGASync/gui/gui.cmake           | 110 ++++++++++++++++++++++++---
+ 2 files changed, 100 insertions(+), 14 deletions(-)
+
+diff --git a/src/MEGASync/gui/TrayIconManager.cpp b/src/MEGASync/gui/TrayIconManager.cpp
+index 79f1914..bd4cea7 100644
+--- a/src/MEGASync/gui/TrayIconManager.cpp
++++ b/src/MEGASync/gui/TrayIconManager.cpp
+@@ -70,12 +70,12 @@ void TrayIconManager::initTrayIcon()
+ 
+ QString TrayIconManager::themePrefix() const
+ {
+-    return (mTheme == Theme::Dark) ? QStringLiteral(":/dark/") : QStringLiteral(":/light/");
++    return (mTheme == Theme::Dark) ? QStringLiteral("nz.mega.MEGAsync.dark_") : QStringLiteral("nz.mega.MEGAsync.light_");
+ }
+ 
+ QIcon TrayIconManager::loadIcon(const QString& filename) const
+ {
+-    QIcon icon(themePrefix() + filename);
++    QIcon icon = QIcon::fromTheme(themePrefix() + filename);
+ 
+ #ifdef __APPLE__
+     if (!icon.isNull())
+diff --git a/src/MEGASync/gui/gui.cmake b/src/MEGASync/gui/gui.cmake
+index 3095a0d..5c4c897 100644
+--- a/src/MEGASync/gui/gui.cmake
++++ b/src/MEGASync/gui/gui.cmake
+@@ -499,46 +499,132 @@ if (UNIX AND NOT APPLE)
+ 
+     # color
+     set(HICOLOR "share/icons/hicolor/scalable/status")
+-    install(FILES gui/images/synching.svg RENAME megasynching.svg
++    install(FILES gui/images/synching.svg RENAME nz.mega.MEGAsync.synching.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/warning.svg RENAME megawarning.svg
++    install(FILES gui/images/warning.svg RENAME nz.mega.MEGAsync.warning.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/alert.svg RENAME megaalert.svg
++    install(FILES gui/images/alert.svg RENAME nz.mega.MEGAsync.alert.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/paused.svg RENAME megapaused.svg
++    install(FILES gui/images/paused.svg RENAME nz.mega.MEGAsync.paused.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/logging.svg RENAME megalogging.svg
++    install(FILES gui/images/logging.svg RENAME nz.mega.MEGAsync.logging.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+-    install(FILES gui/images/uptodate.svg RENAME megauptodate.svg
++    install(FILES gui/images/uptodate.svg RENAME nz.mega.MEGAsync.uptodate.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
+     )
+ 
++    install(FILES gui/images/system_tray/dark/tray_icon_blocked.svg RENAME nz.mega.MEGAsync.dark_tray_icon_blocked.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++    )
++    install(FILES gui/images/system_tray/light/tray_icon_blocked.svg RENAME nz.mega.MEGAsync.light_tray_icon_blocked.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++    )
++    install(FILES gui/images/system_tray/dark/tray_icon_default.svg RENAME nz.mega.MEGAsync.dark_tray_icon_default.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++    )
++    install(FILES gui/images/system_tray/light/tray_icon_default.svg RENAME nz.mega.MEGAsync.light_tray_icon_default.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++    )
++    install(FILES gui/images/system_tray/dark/tray_icon_paused.svg RENAME nz.mega.MEGAsync.dark_tray_icon_paused.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++    )
++    install(FILES gui/images/system_tray/light/tray_icon_paused.svg RENAME nz.mega.MEGAsync.light_tray_icon_paused.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++    )
++    foreach(I RANGE 1 30)
++        install(FILES gui/images/system_tray/dark/tray_icon_logging_frame_${I}.svg RENAME nz.mega.MEGAsync.dark_tray_icon_logging_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++        )
++        install(FILES gui/images/system_tray/light/tray_icon_logging_frame_${I}.svg RENAME nz.mega.MEGAsync.light_tray_icon_logging_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++        )
++    endforeach()
++    foreach(I RANGE 1 30)
++        install(FILES gui/images/system_tray/dark/tray_icon_progress_frame_${I}.svg RENAME nz.mega.MEGAsync.dark_tray_icon_progress_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++        )
++        install(FILES gui/images/system_tray/light/tray_icon_progress_frame_${I}.svg RENAME nz.mega.MEGAsync.light_tray_icon_progress_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++        )
++    endforeach()
++    foreach(I RANGE 1 60)
++        install(FILES gui/images/system_tray/dark/tray_icon_promo_frame_${I}.svg RENAME nz.mega.MEGAsync.dark_tray_icon_promo_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++        )
++        install(FILES gui/images/system_tray/light/tray_icon_promo_frame_${I}.svg RENAME nz.mega.MEGAsync.light_tray_icon_promo_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${HICOLOR}"
++        )
++    endforeach()
++
+     # mono-dark
+     set(MONOCOLOR "share/icons/ubuntu-mono-dark/status/24")
+-    install(FILES gui/images/synching_clear.svg RENAME megasynching.svg
++    install(FILES gui/images/synching_clear.svg RENAME nz.mega.MEGAsync.synching.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/warning_clear.svg RENAME megawarning.svg
++    install(FILES gui/images/warning_clear.svg RENAME nz.mega.MEGAsync.warning.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/alert_clear.svg RENAME megaalert.svg
++    install(FILES gui/images/alert_clear.svg RENAME nz.mega.MEGAsync.alert.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/paused_clear.svg RENAME megapaused.svg
++    install(FILES gui/images/paused_clear.svg RENAME nz.mega.MEGAsync.paused.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/logging_clear.svg RENAME megalogging.svg
++    install(FILES gui/images/logging_clear.svg RENAME nz.mega.MEGAsync.logging.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+-    install(FILES gui/images/uptodate_clear.svg RENAME megauptodate.svg
++    install(FILES gui/images/uptodate_clear.svg RENAME nz.mega.MEGAsync.uptodate.svg.svg
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
+     )
+ 
++    install(FILES gui/images/system_tray/dark/tray_icon_blocked.svg RENAME nz.mega.MEGAsync.dark_tray_icon_blocked.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++    )
++    install(FILES gui/images/system_tray/dark/tray_icon_blocked.svg RENAME nz.mega.MEGAsync.light_tray_icon_blocked.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++    )
++    install(FILES gui/images/system_tray/dark/tray_icon_default.svg RENAME nz.mega.MEGAsync.dark_tray_icon_default.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++    )
++    install(FILES gui/images/system_tray/dark/tray_icon_default.svg RENAME nz.mega.MEGAsync.light_tray_icon_default.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++    )
++    install(FILES gui/images/system_tray/dark/tray_icon_paused.svg RENAME nz.mega.MEGAsync.dark_tray_icon_paused.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++    )
++    install(FILES gui/images/system_tray/dark/tray_icon_paused.svg RENAME nz.mega.MEGAsync.light_tray_icon_paused.svg.svg
++        DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++    )
++    foreach(I RANGE 1 30)
++        install(FILES gui/images/system_tray/dark/tray_icon_logging_frame_${I}.svg RENAME nz.mega.MEGAsync.dark_tray_icon_logging_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++        )
++        install(FILES gui/images/system_tray/dark/tray_icon_logging_frame_${I}.svg RENAME nz.mega.MEGAsync.light_tray_icon_logging_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++        )
++    endforeach()
++    foreach(I RANGE 1 30)
++        install(FILES gui/images/system_tray/dark/tray_icon_progress_frame_${I}.svg RENAME nz.mega.MEGAsync.dark_tray_icon_progress_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++        )
++        install(FILES gui/images/system_tray/dark/tray_icon_progress_frame_${I}.svg RENAME nz.mega.MEGAsync.light_tray_icon_progress_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++        )
++    endforeach()
++    foreach(I RANGE 1 60)
++        install(FILES gui/images/system_tray/dark/tray_icon_promo_frame_${I}.svg RENAME nz.mega.MEGAsync.dark_tray_icon_promo_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++        )
++        install(FILES gui/images/system_tray/dark/tray_icon_promo_frame_${I}.svg RENAME nz.mega.MEGAsync.light_tray_icon_promo_frame_${I}.svg.svg
++            DESTINATION "${CMAKE_INSTALL_BINDIR}/../${MONOCOLOR}"
++        )
++    endforeach()
++
+     # rcc files
+     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/Resources_common.rcc"
+         DESTINATION "${CMAKE_INSTALL_BINDIR}/../share/megasync/resources"
+-- 
+2.53.0
+
