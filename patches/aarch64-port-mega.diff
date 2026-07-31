@@ -27,17 +27,6 @@ index d347e5205..8888bfbbd 100644
  
          pkg_check_modules(sodium REQUIRED IMPORTED_TARGET libsodium)
          target_link_libraries(SDKlib PRIVATE PkgConfig::sodium)
-@@ -111,8 +112,8 @@ macro(load_sdklib_libraries)
-         pkg_check_modules(curl REQUIRED IMPORTED_TARGET libcurl)
-         target_link_libraries(SDKlib PRIVATE PkgConfig::curl)
- 
--        find_package(ICU COMPONENTS uc data REQUIRED)
--        target_link_libraries(SDKlib PRIVATE ICU::uc ICU::data)
-+        find_package(ICU COMPONENTS i18n uc data REQUIRED)
-+        target_link_libraries(SDKlib PRIVATE ICU::i18n ICU::uc ICU::data)
- 
-         if(USE_OPENSSL)
-             find_package(OpenSSL REQUIRED)
 @@ -126,9 +127,9 @@ macro(load_sdklib_libraries)
          endif()
  

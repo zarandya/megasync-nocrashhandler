@@ -1,7 +1,7 @@
 id: nz.mega.MEGAsync
 sdk: org.kde.Sdk
 runtime: org.kde.Platform
-runtime-version: 5.15-24.08
+runtime-version: 5.15-25.08
 finish-args:
   - --device=dri
   # The user should use flatseal to grant these permissions 
@@ -51,8 +51,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meganz/MEGAsync.git
-        tag:  v6.2.1.0_Linux
-        commit: cca47ffe35cced6248bf05498d8931f0a833abed
+        tag:  v6.5.1.0_Linux
+        commit: eb2e25f3143d47bac8050a7eae0ed5ee891dd432
         disable-submodules: true
         x-checker-data:
           type: json
@@ -63,7 +63,7 @@ modules:
           is-main-source: true
       - type: git
         url:  https://github.com/meganz/sdk.git
-        commit: 663549152ccf05866ffe059d9b6f4be54dc10cce 
+        commit: 715b2b79b6db7c1d7cc7c790e2e15a58164dafbb
         dest: src/MEGASync/mega
       - type: shell
         commands:
@@ -119,8 +119,8 @@ modules:
         buildsystem: cmake-ninja
         sources:
           - type: archive
-            url: https://github.com/c-ares/c-ares/releases/download/v1.34.6/c-ares-1.34.6.tar.gz
-            sha256: 912dd7cc3b3e8a79c52fd7fb9c0f4ecf0aaa73e45efda880266a2d6e26b84ef5
+            url: https://github.com/c-ares/c-ares/releases/download/v1.34.8/c-ares-1.34.8.tar.gz
+            sha256: c222b6d681096f9444d2c4863d2c1174019e27cacca0a4a5c114d36dd7d7bf78
             x-checker-data:
               type: html
               url: https://c-ares.haxx.se/download/
@@ -155,16 +155,14 @@ modules:
         sources:
           - type: git
             url: https://github.com/jedisct1/libsodium.git
-            tag: 1.0.21-RELEASE
-            commit: d24faf56214469b354b01c8ba36257e04737101e
+            tag: 1.0.22-RELEASE
+            commit: 77e1ce5d6dee871c49ef211222ba18ef0c486bda
             x-checker-data:
               type: json
               url: https://api.github.com/repos/jedisct1/libsodium/releases/latest
               tag-query: .tag_name
               version-query: .tag_name
               timestamp-query: .published_at
-          - type: patch
-            path: patches/6702f69bef6044163acc7715e6ac7e430890ce78.diff
 
       - name: libmediainfo
         buildsystem: cmake-ninja
@@ -172,8 +170,8 @@ modules:
         builddir: true
         sources:
           - type: archive
-            url: http://mediaarea.net/download/source/libmediainfo/26.01/libmediainfo_26.01.tar.xz
-            sha256: bcd3d2cc12cf108ca0fbad07568b303257e72afd8ff73d05cfe6b7aa0e66a1c5
+            url: http://mediaarea.net/download/source/libmediainfo/26.05/libmediainfo_26.05.tar.xz
+            sha256: c08b2d87b2fb5edb4526c2a8a317eb1f2cff44807e4631a037ca9f9a1d455054
         modules:
 
           - name: libzen
@@ -184,6 +182,8 @@ modules:
               - type: archive
                 url: https://mediaarea.net/download/source/libzen/0.4.41/libzen_0.4.41.tar.xz
                 sha256: 933bad3b7ecd29dc6bdc88a83645c83dfd098c15b0b90d6177a37fa1536704e8
+            config_opts:
+              - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
       - name: libuv
         sources:
@@ -197,16 +197,16 @@ modules:
           - --disable-static
         sources:
           - type: archive
-            url: https://www.libraw.org/data/LibRaw-0.22.1.tar.gz
-            sha256: a789dc4e2409e2901d93793a4e0b80c7b49d0d97cf6ad71c850eb7616acfd786
+            url: https://www.libraw.org/data/LibRaw-0.22.2.tar.gz
+            sha256: de86b035655accff8d4010f1a221fdf50d353cb7b1422ba26f14a0db92612cfa
         cleanup:
           - /bin
 
   - name: xrdb
     sources:
       - type: archive
-        url: https://www.x.org/releases/individual/app/xrdb-1.2.2.tar.gz
-        sha256: db2d774a35ae2f7e7ac61cc2de0dcae27fc2aa14399c35721f8300e63ea73549
+        url: https://xorg.freedesktop.org/archive/individual/app/xrdb-1.2.3.tar.gz
+        sha256: 89c3d0a5ee77e3f1b25a3a63cce2a322fe899acb061ed8e0bab6920189b61edd
         x-checker-data:
           type: html
           url: https://www.x.org/releases/individual/app/
@@ -216,7 +216,7 @@ modules:
       - name: libXmu
         sources:
           - type: archive
-            url: https://www.x.org/releases/individual/lib/libXmu-1.3.1.tar.gz
+            url: https://xorg.freedesktop.org/archive/individual/lib/libXmu-1.3.1.tar.gz
             sha256: 5c8f44e26ccc9b14188599524e67ce788a205b38e297834babdeb12090be835b
             x-checker-data:
               type: html
